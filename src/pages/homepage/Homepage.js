@@ -5,17 +5,21 @@ import { Cartcontext } from "../../context/Context";
 
 const Homepage = () => {
   const [data, setdata] = useState([]);
-  const fetchData = async () => {
-    const response = await axios.get("https://fakestoreapi.com/products");
-    setdata(response.data);
-    console.log(data);
-  };
+
   useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.get("https://fakestoreapi.com/products");
+      setdata(response.data);
+      console.log(response.data); // Logging the fetched data instead of 'data' state
+    };
+    
     fetchData();
-  }, [fetchData]);
+  }, []); // Empty dependency array to run the effect only once
+  
   const Globalstate = useContext(Cartcontext);
   const dispatch = Globalstate.dispatch;
   console.log(Globalstate);
+
   return (
     <div className="Home">
       {data.map((item, index) => {
